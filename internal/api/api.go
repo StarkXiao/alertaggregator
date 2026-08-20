@@ -119,6 +119,9 @@ func queryInt(r *http.Request, key string, fallback int) (int, error) {
 	if err != nil || value < 0 || value > 1000 {
 		return 0, errors.New("invalid query integer")
 	}
+	if value == 0 {
+		return fallback, nil
+	}
 	return value, nil
 }
 func (s *Server) action(w http.ResponseWriter, r *http.Request) {
