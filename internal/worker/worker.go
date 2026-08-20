@@ -14,9 +14,6 @@ type Worker struct {
 }
 
 func (w *Worker) Run(ctx context.Context) {
-	if ctx.Err() != nil {
-		return
-	}
 	if w.Interval <= 0 {
 		w.Interval = time.Second
 	}
