@@ -2,6 +2,7 @@ package aggregate
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"alertaggregator/internal/fingerprint"
@@ -153,7 +154,7 @@ func (e *Engine) Ack(idv string) error {
 			a.AcknowledgedBy = "api"
 			return nil
 		}
-		return ErrNotFound
+		return fmt.Errorf("acknowledge alert: %v", ErrNotFound)
 	})
 }
 
