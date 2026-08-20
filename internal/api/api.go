@@ -58,7 +58,9 @@ func (s *Server) events(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "invalid", 400)
 		return
 	}
-	e.ID = id.New("evt")
+	if e.ID == "" {
+		e.ID = id.New("evt")
+	}
 	e.Fingerprint = ""
 	e.Processed = false
 	e.Service = strings.TrimSpace(e.Service)
