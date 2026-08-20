@@ -15,7 +15,7 @@ func (n *Notifier) Record(d *model.Snapshot, a *model.Alert, kind string, now ti
 	d.Notifications = append(d.Notifications, model.Notification{ID: id.New("ntf"), AlertID: a.ID, Kind: kind, Channel: "log", Message: fmt.Sprintf("%s %s", kind, a.Title), CreatedAt: now, Delivered: true})
 	a.NotifyCount++
 	a.LastNotifiedAt = &now
-	next := now.Add(n.Window * time.Duration(1<<min(a.NotifyCount, 4)))
+	next := now.Add(n.Window * time.Duration(1<<min(a.NotifyCount+1, 4)))
 	a.NextNotifyAt = &next
 }
 func min(a, b int) int {
