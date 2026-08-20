@@ -2,9 +2,12 @@ package validation
 
 import (
 	"alertaggregator/internal/model"
+	"errors"
 	"fmt"
 	"strings"
 )
+
+var ErrInvalidLevel = errors.New("invalid level")
 
 func Event(e model.Event) error {
 	if strings.TrimSpace(e.Service) == "" {
@@ -19,7 +22,7 @@ func Event(e model.Event) error {
 	switch strings.ToLower(strings.TrimSpace(e.Level)) {
 	case "debug", "info", "warn", "error", "fatal":
 	default:
-		return fmt.Errorf("invalid level")
+		return fmt.Errorf("invalid level: %v", ErrInvalidLevel)
 	}
 	return nil
 }
