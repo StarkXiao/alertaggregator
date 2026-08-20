@@ -13,7 +13,6 @@ type Store struct {
 	path string
 	data model.Snapshot
 }
-
 func Open(p string) (*Store, error) {
 	s := &Store{path: p}
 	if err := os.MkdirAll(filepath.Dir(p), 0755); err != nil {
@@ -62,9 +61,6 @@ func (s *Store) Alerts() []model.Alert {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	out := append([]model.Alert(nil), s.data.Alerts...)
-	for i := range out {
-		out[i].SampleEventIDs = append([]string(nil), out[i].SampleEventIDs...)
-	}
 	return out
 }
 func copyLabels(labels map[string]string) map[string]string {

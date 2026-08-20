@@ -53,9 +53,6 @@ func (s *Store) Events() []model.Event {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	out := append([]model.Event(nil), s.data.Events...)
-	for i := range out {
-		out[i].Labels = copyLabels(out[i].Labels)
-	}
 	return out
 }
 func (s *Store) Alerts() []model.Alert {

@@ -13,7 +13,6 @@ type Store struct {
 	path string
 	data model.Snapshot
 }
-
 func Open(p string) (*Store, error) {
 	s := &Store{path: p}
 	if err := os.MkdirAll(filepath.Dir(p), 0755); err != nil {

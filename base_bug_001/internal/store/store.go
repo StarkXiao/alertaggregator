@@ -13,7 +13,6 @@ type Store struct {
 	path string
 	data model.Snapshot
 }
-
 func Open(p string) (*Store, error) {
 	s := &Store{path: p}
 	if err := os.MkdirAll(filepath.Dir(p), 0755); err != nil {
@@ -50,8 +49,6 @@ func (s *Store) AddEvent(e model.Event) error {
 	return s.Update(func(data *model.Snapshot) error { data.Events = append(data.Events, e); return nil })
 }
 func (s *Store) Events() []model.Event {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
 	out := append([]model.Event(nil), s.data.Events...)
 	for i := range out {
 		out[i].Labels = copyLabels(out[i].Labels)
