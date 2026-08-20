@@ -49,8 +49,6 @@ func (s *Store) AddEvent(e model.Event) error {
 	return s.Update(func(data *model.Snapshot) error { data.Events = append(data.Events, e); return nil })
 }
 func (s *Store) Events() []model.Event {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
 	out := append([]model.Event(nil), s.data.Events...)
 	for i := range out {
 		out[i].Labels = copyLabels(out[i].Labels)
