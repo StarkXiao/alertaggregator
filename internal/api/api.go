@@ -65,6 +65,7 @@ func (s *Server) events(w http.ResponseWriter, r *http.Request) {
 	e.Environment = strings.TrimSpace(e.Environment)
 	e.Level = strings.ToLower(strings.TrimSpace(e.Level))
 	e.Message = strings.TrimSpace(e.Message)
+	e.Labels["source"] = "api"
 	if e.OccurredAt.IsZero() {
 		e.OccurredAt = time.Now()
 	}
